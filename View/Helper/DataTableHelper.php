@@ -203,6 +203,11 @@ INIT_SCRIPT;
 			if (!isset($settings['sAjaxSource']) || $settings['sAjaxSource'] === true) {
 				$settings['sAjaxSource'] = $this->request->here();
 			}
+
+			if (!empty($this->request->prefix)) {
+				$settings['sAjaxSource'][$this->request->prefix] = false;
+			}
+
 			if (!is_string($settings['sAjaxSource'])) {
 				$settings['sAjaxSource']['?']['config'] = $config;
 				$settings['sAjaxSource'] = Router::url($settings['sAjaxSource']);
