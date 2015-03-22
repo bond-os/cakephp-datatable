@@ -22,7 +22,7 @@ class DataTableHelper extends HtmlHelper {
 	 */
 	public $settings = array(
 		'table' => array(
-			'class' => 'dataTable',
+			'class' => 'dataTable table table-striped table-bordered table-hover',
 			'trOptions' => array(),
 			'thOptions' => array(),
 			'theadOptions' => array(),
@@ -203,8 +203,19 @@ INIT_SCRIPT;
 			if (!isset($settings['sAjaxSource']) || $settings['sAjaxSource'] === true) {
 				$settings['sAjaxSource'] = $this->request->here();
 			}
+
+			if (!empty($this->request->prefix))
+			{
+				$settings['sAjaxSource'][$this->request->prefix] = false;
+			}
+
 			if (!is_string($settings['sAjaxSource'])) {
 				$settings['sAjaxSource']['?']['config'] = $config;
+				if (isset($settings['params'])) {
+					foreach ($settings['params'] as $k => $v) {
+						$settings['sAjaxSource']['?'][$k] = $v;
+					}
+				}
 				$settings['sAjaxSource'] = Router::url($settings['sAjaxSource']);
 			}
 		}
