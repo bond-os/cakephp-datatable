@@ -48,6 +48,16 @@ class DataTableComponent extends Component {
 		}
 
 		$config = new DataTableConfig($name, $this->settings);
+
+		if ($config->require_admin)
+		{
+			if (!$this->Controller->_canAccessAdmin)
+			{
+				throw new UnauthorizedException();
+				return false;
+			}
+		}
+
 		$config->conditions = array_merge($config->conditions, $scope);
 
 		$Model = $this->_getModel($config->model);

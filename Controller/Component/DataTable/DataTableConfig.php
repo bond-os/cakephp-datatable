@@ -23,6 +23,7 @@ class DataTableConfig {
 		'maxLimit' => 100,
 		'viewVar' => 'dtResults',
 		'order' => array(),
+		'require_admin' => false,
 	);
 
 	/**
